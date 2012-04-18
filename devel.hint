@@ -1,0 +1,6 @@
+category: Editors MATE
+requires: libatk1.0-devel libglib2.0-devel libgtk2.0-devel libgtksourceview2.0-devel mate-text-editor
+external-source: mate-text-editor
+sdesc: "MATE text editor (plugin development)"
+ldesc: "MATE is a fork of the GNOME 2 desktop. It provides an intuitive
+and attractive desktop to Linux users using traditional metaphors."

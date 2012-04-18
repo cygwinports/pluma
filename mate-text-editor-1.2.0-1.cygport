@@ -1,0 +1,9 @@
+inherit mate
+
+
+PATCH_URI="1.2.0-cygwin.patch"
+
+PKG_NAMES="${PN} ${PN}-devel"
+PKG_HINTS="setup devel"
+mate_text_editor_CONTENTS="--exclude=gtk-doc etc/ usr/bin/ usr/lib/pluma/ usr/share/"
+mate_text_editor_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/ usr/share/gtk-doc/"
