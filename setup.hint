@@ -1,5 +1,0 @@
-category: Editors MATE
-requires: libatk1.0_0 libcairo2 libenchant1 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk2.0_0 libgtksourceview2.0_0 libICE6 libintl8 libmateconf2_4 libpango1.0_0 libSM6 libX11_6 libxml2 mate-conf python python-gobject python-gtk2.0 python-gtksourceview2 python-mateconf
-sdesc: "MATE text editor (aka Pluma)"
-ldesc: "MATE is a fork of the GNOME 2 desktop. It provides an intuitive
-and attractive desktop to Linux users using traditional metaphors."

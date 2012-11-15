@@ -1,0 +1,15 @@
+inherit mate python
+
+NAME="mate-text-editor"
+VERSION=1.4.0
+RELEASE=1
+CATEGORY="Editors MATE"
+SUMMARY="MATE text editor (aka Pluma)"
+DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
+and attractive desktop to Linux users using traditional metaphors."
+
+PATCH_URI="1.2.0-cygwin.patch"
+
+PKG_NAMES="${PN} ${PN}-devel"
+mate_text_editor_CONTENTS="--exclude=gtk-doc etc/ usr/bin/ usr/lib/pluma/ usr/share/"
+mate_text_editor_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/ usr/share/gtk-doc/"
