@@ -2,7 +2,7 @@ inherit mate python
 
 NAME="mate-text-editor"
 VERSION=1.4.0
-RELEASE=1
+RELEASE=2
 CATEGORY="Editors MATE"
 SUMMARY="MATE text editor (aka Pluma)"
 DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
