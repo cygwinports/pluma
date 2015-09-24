@@ -1,15 +1,18 @@
 inherit mate python
 
 NAME="pluma"
-VERSION=1.8.1
+VERSION=1.10.2
 RELEASE=1
 CATEGORY="Editors MATE"
 SUMMARY="MATE text editor"
 DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
 and attractive desktop to Linux users using traditional metaphors."
 
-PKG_NAMES="${NAME} ${NAME}-devel"
+PKG_NAMES="${NAME} ${NAME}-devel ${NAME}-doc"
 pluma_OBSOLETES="mate-text-editor"
 pluma_CONTENTS="--exclude=gtk-doc etc/ usr/bin/ usr/lib/pluma/ usr/libexec/ usr/share/"
 pluma_devel_OBSOLETES="mate-text-editor-devel"
-pluma_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/ usr/share/gtk-doc/"
+pluma_devel_REQUIRES="pluma"
+pluma_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+pluma_doc_CATEGORY="Doc"
+pluma_doc_CONTENTS="usr/share/gtk-doc/"
