@@ -1,0 +1,42 @@
+--- origsrc/pluma-1.14.0/configure.ac	2016-04-05 15:54:01.000000000 -0500
++++ src/pluma-1.14.0/configure.ac	2016-05-22 16:41:52.803194700 -0500
+@@ -372,8 +372,8 @@ AC_ARG_ENABLE([tests],
+ 
+ AM_CONDITIONAL(ENABLE_TESTS, test x$enable_tests = xyes)
+ 
+-PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
+-LOADER_LIBTOOL_FLAGS="-module -avoid-version"
++PLUGIN_LIBTOOL_FLAGS="-module -avoid-version -no-undefined -Wl,\$(top_builddir)/pluma/libpluma.a"
++LOADER_LIBTOOL_FLAGS="-module -avoid-version -no-undefined -Wl,\$(top_builddir)/pluma/libpluma.a"
+ 
+ AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
+ AC_SUBST(LOADER_LIBTOOL_FLAGS)
+--- origsrc/pluma-1.14.0/data/pluma.pc.in	2015-10-09 19:14:29.000000000 -0500
++++ src/pluma-1.14.0/data/pluma.pc.in	2016-05-22 16:42:14.246069500 -0500
+@@ -9,4 +9,4 @@ Description: pluma
+ Requires: gtksourceview-@GTK_API_VERSION@
+ Version: @VERSION@
+ Cflags: -I${includedir}/pluma
+-Libs: -L${libdir}
++Libs: -L${libdir} -lpluma
+--- origsrc/pluma-1.14.0/pluma/Makefile.am	2015-12-01 15:30:08.000000000 -0600
++++ src/pluma-1.14.0/pluma/Makefile.am	2016-05-22 16:44:31.006258200 -0500
+@@ -22,6 +22,7 @@ pluma_SOURCES = \
+ pluma_LDADD = libpluma.la $(PLUMA_LIBS) $(EGG_SMCLIENT_LIBS)
+ 
+ pluma_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
++pluma_LDFLAGS += -Wl,--export-all-symbols,--out-implib,libpluma.a
+ 
+ libpluma_la_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
+ 
+@@ -200,6 +201,10 @@ CLEANFILES = $(BUILT_SOURCES)
+ dist-hook:
+ 	cd $(distdir); rm -f $(BUILT_SOURCES)
+ 
++install-exec-hook:
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(INSTALL_DATA) libpluma.a $(DESTDIR)$(libdir)/libpluma.dll.a
++
+ BACON_DIR=$(srcdir)/../../libbacon/src/
+ BACON_FILES=bacon-message-connection.h bacon-message-connection.c
+ 
