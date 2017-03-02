@@ -1,7 +1,7 @@
 inherit mate python
 
 NAME="pluma"
-VERSION=1.14.1
+VERSION=1.16.0
 RELEASE=1
 CATEGORY="Editors MATE"
 SUMMARY="MATE text editor"
@@ -17,3 +17,5 @@ pluma_devel_OBSOLETES="mate-text-editor-devel"
 pluma_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
 pluma_doc_CATEGORY="Doc"
 pluma_doc_CONTENTS="usr/share/gtk-doc/"
+
+CYGCONF_ARGS="--disable-python --with-gtk=3.0"
