@@ -1,0 +1,54 @@
+--- origsrc/pluma-1.18.1/configure.ac	2017-04-04 11:39:45.000000000 -0500
++++ src/pluma-1.18.1/configure.ac	2017-05-01 14:14:52.610609700 -0500
+@@ -210,7 +210,7 @@ AC_ARG_ENABLE([tests],
+ 
+ AM_CONDITIONAL(ENABLE_TESTS, test x$enable_tests = xyes)
+ 
+-PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
++PLUGIN_LIBTOOL_FLAGS="-module -avoid-version -no-undefined -Wl,\$(top_builddir)/pluma/libpluma.a"
+ 
+ AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
+ 
+--- origsrc/pluma-1.18.1/data/pluma.pc.in	2017-03-13 07:50:13.000000000 -0500
++++ src/pluma-1.18.1/data/pluma.pc.in	2017-05-01 14:14:52.617610000 -0500
+@@ -9,4 +9,4 @@ Description: pluma
+ Requires: gtksourceview-3.0 libpeas-1.0 libpeas-gtk-1.0
+ Version: @VERSION@
+ Cflags: -I${includedir}/pluma
+-Libs: -L${libdir}
++Libs: -L${libdir} -lpluma
+--- origsrc/pluma-1.18.1/pluma/Makefile.am	2017-03-13 07:50:13.000000000 -0500
++++ src/pluma-1.18.1/pluma/Makefile.am	2017-05-01 14:14:52.626611200 -0500
+@@ -21,6 +21,7 @@ pluma_SOURCES = \
+ pluma_LDADD = libpluma.la $(PLUMA_LIBS) $(EGG_SMCLIENT_LIBS) $(INTROSPECTION_LIBS)
+ 
+ pluma_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
++pluma_LDFLAGS += -Wl,--export-all-symbols,--out-implib,libpluma.a
+ 
+ libpluma_la_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
+ 
+@@ -192,11 +192,11 @@ if HAVE_INTROSPECTION
+ INTROSPECTION_GIRS = Pluma-1.0.gir
+ INTROSPECTION_SCANNER_ARGS = -I$(top_srcdir) --warn-all
+ 
+-Pluma-1.0.gir: pluma
++Pluma-1.0.gir: pluma$(EXEEXT)
+ Pluma_1_0_gir_INCLUDES = Gtk-3.0 GtkSource-3.0
+ Pluma_1_0_gir_FILES = $(INST_H_FILES) $(libpluma_c_files) $(BUILT_SOURCES)
+ Pluma_1_0_gir_VERSION = 1.0
+-Pluma_1_0_gir_PROGRAM = $(builddir)/pluma
++Pluma_1_0_gir_PROGRAM = $(builddir)/pluma$(EXEEXT)
+ Pluma_1_0_gir_NAMESPACE = Pluma
+ 
+ girdir = $(datadir)/gir-1.0
+@@ -210,6 +211,10 @@ endif
+ dist-hook:
+ 	cd $(distdir); rm -f $(BUILT_SOURCES)
+ 
++install-exec-hook:
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(INSTALL_DATA) libpluma.a $(DESTDIR)$(libdir)/libpluma.dll.a
++
+ BACON_DIR=$(srcdir)/../../libbacon/src/
+ BACON_FILES=bacon-message-connection.h bacon-message-connection.c
+ 

@@ -1,21 +1,37 @@
-inherit mate python
+inherit mate python2
 
 NAME="pluma"
-VERSION=1.16.0
+VERSION=1.18.1
 RELEASE=1
 CATEGORY="Editors MATE"
 SUMMARY="MATE text editor"
 DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
 and attractive desktop to Linux users using traditional metaphors."
 
-PATCH_URI="1.14.0-no-undefined.patch"
+PATCH_URI="1.18.1-no-undefined.patch"
 
 PKG_NAMES="${NAME} ${NAME}-devel ${NAME}-doc"
 pluma_OBSOLETES="mate-text-editor"
-pluma_CONTENTS="--exclude=gtk-doc usr/bin/ usr/lib/pluma/ usr/libexec/ usr/share/"
+pluma_CONTENTS="
+	usr/bin/
+	usr/lib/girepository-1.0/Pluma-1.0.typelib
+	usr/lib/pluma/plugins/
+	usr/libexec/pluma/
+	usr/share/appdata/pluma.appdata.xml
+	usr/share/applications/pluma.desktop
+	usr/share/doc/pluma/
+	usr/share/gir-1.0/Pluma-1.0.gir
+	usr/share/glib-2.0/schemas/org.mate.pluma.*
+	usr/share/help/*/pluma/
+	usr/share/locale/*/*/pluma.mo
+	usr/share/man/man1/pluma.1*
+	usr/share/pluma/
+"
 pluma_devel_OBSOLETES="mate-text-editor-devel"
-pluma_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+pluma_devel_CONTENTS="
+	usr/include/pluma/
+	usr/lib/libpluma.dll.a
+	usr/lib/pkgconfig/pluma.pc
+"
 pluma_doc_CATEGORY="Doc"
 pluma_doc_CONTENTS="usr/share/gtk-doc/"
-
-CYGCONF_ARGS="--disable-python --with-gtk=3.0"
