@@ -1,7 +1,7 @@
 inherit mate python2
 
 NAME="pluma"
-VERSION=1.18.2
+VERSION=1.20.1
 RELEASE=1
 CATEGORY="Editors MATE"
 SUMMARY="MATE text editor"
